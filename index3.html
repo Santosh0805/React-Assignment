@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+    <style>
+        body{
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        const App = () => {
+            const handleAlert = () => {
+                alert('Hello');
+            };
+            return (
+                <div className="main">
+                    <p>Click the below button to alert 'Hello'</p>
+                    <button className="btn" onClick={handleAlert}>Alert Hello</button>
+                </div>
+            );
+        };
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+
+
+        // Your JSX code here
+    </script>
+</body>
+
+</html>
