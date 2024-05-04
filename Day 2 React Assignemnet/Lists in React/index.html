@@ -1,0 +1,102 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> List Rendering</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        let items = [
+            // "Apple",
+            // "Banana",
+            // "Cherry",
+        ];
+
+        // function ItemList() {
+        //     return items.map((item) => {
+        //         return <li>{item}</li>;
+        //     })
+        //     return <ul>{items}</ul>;
+        // };
+
+
+        // function ItemList() {
+        //     if (items.length === 0) {
+        //         return <p>No items Found</p>;
+        //     };
+
+
+        function ItemList({ items }) {
+            
+            if (items.length === 0) {
+                return <p>No Items Found</p>
+            }
+            
+            return (
+                <div>
+                    {items.map((element) => {
+                        return <ul><li items={items}>{element} </li> </ul>
+                    })}
+                    </div>
+                );
+            }
+            ReactDOM.render(<ItemList/>,document.getElementById("root"));
+    </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic List Rendering</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        let items = [
+      // "Banana",
+            // "Cherry",
+        ];
+        function ItemList({ items }) {
+
+            if (items.length === 0) {
+                return
+                <p>No Items Found</p>
+            };
+
+            return (
+                <div>
+                    {items.map((element) => {
+                        return <ul>
+                            <li items={items}>{element} </li>
+                        </ul>
+                    })}
+                </div>
+            );
+        }
+
+        const reactRoot = ReactDOM.createRoot(document.getElementById("root"));
+        reactRoot.render(<ItemList items={items} />);
+    </script>
+</body>
+
+</html>

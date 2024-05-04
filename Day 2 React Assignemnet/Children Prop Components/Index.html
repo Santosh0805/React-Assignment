@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>children</title>
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gallery-item {
+      margin-top: 100px;
+      margin-right: 10px;
+      padding: 5px;
+    }
+
+    .image {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+      transition: all 1.5s ease-in-out;
+    }
+
+    .image:hover {
+      transform: scale(0.3s);
+      width: 100px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    function Gallery({ children }) {
+      return (
+        <div className="gallery">
+          {children.map((child, index) => (
+            <div key={index} className="gallery-item">
+              {child}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function Image({ src, alt }) {
+      return <img src={src} alt={alt} className="image" />;
+    }
+
+    const App = () => (
+      <Gallery>
+        <Image src="https://i.pinimg.com/736x/f7/22/0d/f7220d41a319351cb3bbd7f811d84708.jpg"  alt="Image 1"/>
+        <Image src="https://i.pinimg.com/736x/cc/a1/38/cca1388aff6a63643426ac4b56988307.jpg" alt="Image 2" />
+      </Gallery>
+    );
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+
+</html>
