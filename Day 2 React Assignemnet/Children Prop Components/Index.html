@@ -59,12 +59,17 @@
 
     const App = () => (
       <Gallery>
-        <Image src="https://i.pinimg.com/736x/f7/22/0d/f7220d41a319351cb3bbd7f811d84708.jpg"  alt="Image 1"/>
+        <Image src="https://i.pinimg.com/736x/f7/22/0d/f7220d41a319351cb3bbd7f811d84708.jpg" alt="Image 1" />
         <Image src="https://i.pinimg.com/736x/cc/a1/38/cca1388aff6a63643426ac4b56988307.jpg" alt="Image 2" />
       </Gallery>
     );
 
-    ReactDOM.render(<App />, document.getElementById('root'));
+    // const app = ReactDOM.render(<App />, document.getElementById('root'));
+
+    const app = ReactDOM.createRoot(document.getElementById('root'));
+    app.render(<App />);
+
+    
   </script>
 </body>
 
