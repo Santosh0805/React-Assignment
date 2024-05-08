@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Picker</title>
+    <style>
+        h1 {
+            font: bold;
+            text-align: center;
+            justify-content: center;
+            /* border: 1px solid red; */
+
+        }
+
+        .color-picker-container {
+            display: flex;
+            width: 40%;
+            margin: auto;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .inputColor {
+            padding: 10px;
+            font-family: sans-serif;
+            font-size: 15px;
+            border-radius: 10px;
+            border: 1px solid black;
+            color: black;
+            outline: 0;
+        }
+
+        .Box {
+            height: 100px;
+            width: 200px;
+            border-radius: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    function App() {
+        let [color, setColor] = React.useState("#");
+        function handleInputChange(event) {
+            setColor(event.target.value)
+        }
+
+        let colorDisplay = {
+            backgroundColor: color
+        }
+        if (color.length > 7) {
+            alert("Invalid Hex code");
+            setColor(" ");
+
+        } else {
+
+            return (
+
+                <>
+                    <h1>Color Picker Hex Code </h1>
+                    <div class="color-picker-container">
+                        <input type="text" value={color} onChange={handleInputChange} class="inputColor" placeholder="Enter the Hex color code.." />
+                        <div class="Box" style={colorDisplay} ></div>
+                    </div>
+
+
+                    
+                </>
+            )
+        }
+    }
+    let rootElement = ReactDOM.createRoot(document.getElementById("root"));
+    rootElement.render(<App />)
+</script>
+
+</html>
