@@ -4,6 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dynamic Form</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.remove-button {
+  margin-left: 10px;
+  background-color: #dc3545;
+}
+
+.remove-button:hover {
+  background-color: #bd2130;
+}
+
+    </style>
   </head>
   <body>
     <div id="root"></div>
