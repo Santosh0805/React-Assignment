@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Template</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
-  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="text/babel">
-    // Your  code will go here
-  </script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template</title>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  function Quiz() {
+    const [questions, setQuestions] = React.useState([
+      {
+        id: 20,
+        question: "20 : Which sea separates Africa from Europe?",
+        options: ["Mediterranean", "Black", "Red", "Caspian"],
+        correctAnswer: "Mediterranean",
+        selectedAnswer: null,
+      },
+    ]);
+
+    const [score, setScore] = React.useState(0);
+    const [showScore, setShowScore] = React.useState(false);
+    const handleAnswerClick = (questionId, selectedOption) => {
+    const updatedQuestions = questions.map((q) => q.id === questionId ? { ...q, selectedAnswer: selectedOption } : q);
+    setQuestions(updatedQuestions);
+  };
+    const handleSubmit = () => {
+      const newScore = questions.reduce((totalScore, question) =>question.selectedAnswer === question.correctAnswer? totalScore + 1: totalScore,0);
+      setScore(newScore);
+      setShowScore(true);
+    };
+    const handleRestart = () => {
+      setQuestions(questions.map((q) => ({ ...q, selectedAnswer: null })));
+      setScore(0);
+      setShowScore(false);
+    };
+    return (
+      <div>{!showScore ? (<div>{questions.map((question) => (<div key={question.id}><h3>{question.question}</h3>{question.options.map((option) => (
+            <label key={option}>
+            <input type="radio"name={`question_${question.id}`}value={option}onChange={() =>handleAnswerClick(question.id, option)}checked={question.selectedAnswer === option}/>{option}
+            </label>))}
+            </div>))}
+            <button onClick={handleSubmit}>Submit</button>
+          </div>):(
+          <div>
+            <h2>Your Score: {score}</h2>
+            <button onClick={handleRestart}>Restart Quiz</button>
+          </div>)}
+      </div>
+    );
+  }
+ReactDOM.render(<Quiz />, document.getElementById("root"));
+</script>
+
+</html>
+</script>
 </html>
