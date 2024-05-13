@@ -1,90 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Form</title>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Form</title>
   <style>
-input {
-  margin-bottom: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  width: 200px;
-}
+    input {
+      margin-bottom: 5px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      width: 200px;
+    }
 
-button {
-  margin-left: 5px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-h1{
-  margin: 20px ;
-}
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+    button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
 
-button:hover {
-  background-color: #0056b3;
-}
+    h1 {
+      margin: 20px;
+    }
 
-#root {
-  margin: 20px;
-}
+    button:disabled {
+      color: black;
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
 
-div > div {
-  margin-bottom: 10px;
-}
+    button:hover {
+      background-color: #0056b3;
+    }
 
+    #root {
+      margin: 20px;
+    }
+
+    div>div {
+      margin-bottom: 10px;
+    }
   </style>
-  </head>
-  <body>
-    <h1>Enter Your Hobby </h1>
-    <div id="root"></div>
-  </body>
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="text/babel">
-   
+</head>
 
-function DynamicForm() {
+<body>
+  <h1>Enter Your Hobbies </h1>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+
+  function DynamicForm() {
     const [inputData, setInputData] = React.useState([{ value: "" }]);
     function handleChange(e, i) {
-        let arr = [...inputData];
-        arr[i].value = e.target.value;
-        setInputData(arr);
+      let arr = [...inputData];
+      arr[i].value = e.target.value;
+      setInputData(arr);
     }
     function Addhobby() {
-        setInputData([...inputData, { value: "" }]); 
+      setInputData([...inputData, { value: "" }]);
     }
     function handleRemove(i) {
-        let filterData = inputData.filter((ele, index) => {
-            return index !== i;
-        });
-        setInputData(filterData);
+      let filterData = inputData.filter((ele, index) => {
+        return index !== i;
+      });
+      setInputData(filterData);
     }
     return (
-        <div>{inputData.map((el, i) => {
+      <div>{inputData.map((el, i) => {
         return (
           <div key={i}>
-              <input value={el.value} onChange={(e) => handleChange(e, i)} />
-              <button onClick={Addhobby}>Add Hobby</button> 
-              <button onClick={() => handleRemove(i)}disabled={inputData.length <= 1}>Remove</button>
-            </div>
-            );
-            })}
+            <input value={el.value} onChange={(e) => handleChange(e, i)} />
+            <button onClick={Addhobby}>Add Hobby</button>
+            <button onClick={() => handleRemove(i)} disabled={inputData.length <= 1}>Remove</button>
           </div>
+        );
+      })}
+      </div>
     );
   }
 
   ReactDOM.render(<DynamicForm />, document.getElementById("root"));
 
-  </script>
+</script>
+
 </html>
