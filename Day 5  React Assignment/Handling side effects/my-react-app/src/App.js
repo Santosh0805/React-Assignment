@@ -1,48 +1,61 @@
+import React, { useState, useEffect } from 'react';
+// import App from './App.css';
 import './App.css';
-import React,{useState, useEffect} from 'react';
 function App() {
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1); // Pagination state
+  const [countries, setCountries] = useState([]);
+  const [query, setQuery] = useState(""); 
+  const [page, setPage] = useState(1); 
+
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchCountries = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`
+          `https://restcountries.com/v3.1/name/${query}?page=${page}`
         );
         const data = await response.json();
-        setPosts(data);
+        setCountries(data);
       } catch (error) {
         console.error(error);
       } finally {
         setLoading(false);
       }
     };
-    fetchPosts();
-  }, [page]); // Effect depends on page
+    fetchCountries();
+  }, [query, page]);
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
   return (
     <>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+        placeholder="Search country..."
+      />
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <div>
-            {posts.map((post) => (
-              <div key={post.id}>
-                <h3>{post.title}</h3>
-                <p>{post.body}</p>
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
-          >
-            Previous
-          </button>
-          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
-            Next
-          </button>
+          {Array.isArray(countries) && countries.length > 0 ? (
+            <div>
+              {countries.map((country, index) => (
+                <div key={index}>
+                  <h3>{country.name.common}</h3>
+                  <p>Capital: {country.capital}</p>
+                  <p>Region: {country.region}</p>
+                  <p>Population: {country.population}</p>
+                  <img src={country.flags.png} alt={country.name.common} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No countries found.</p>
+          )}
         </>
       )}
     </>
@@ -50,3 +63,6 @@ function App() {
 }
 
 export default App;
+
+
+
