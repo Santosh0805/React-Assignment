@@ -49,6 +49,7 @@ function App() {
                   <p>Capital: {country.capital}</p>
                   <p>Region: {country.region}</p>
                   <p>Population: {country.population}</p>
+                  <p>area: {country.area}</p>
                   <img src={country.flags.png} alt={country.name.common} />
                 </div>
               ))}
