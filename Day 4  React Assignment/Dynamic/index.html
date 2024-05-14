@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greeting Card Display</title>
+  <style>
+.greet {
+  border: 8px dotted #f9dcc4;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #ffb5a7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease; 
+  width:50%;
+  margin: auto;
+  margin-bottom: 5%;
+}
+
+.greet:hover {
+  box-shadow: 0 8px 16px #ff8fab; 
+}
+
+h2 {
+  margin-top: 0; 
+  color: #fff; 
+}
+
+p {
+  margin: 10px 0; 
+}
+
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- JavaScript code -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Define the GreetingCard component
+    const GreetingCard = ({ greeting, name }) => {
+      return (
+        <div className="greet">
+          <h2>{greeting}</h2>
+          <p>Dear {name},</p>
+          <p>Wishing you all the best!!</p>
+        </div>
+      );
+    };
+
+    class App extends React.Component {
+      state = {
+        cards: [
+          { id: 1, greeting: "🎂Happy Wedding Anniversary", name: "🎉Mom & Papa🎉" },
+          { id: 2, greeting: "💫Congratulations💫", name: "🌺🌺Bhaiya🌺🌺" },
+          { id: 3, greeting: "🌈Welcome", name: "Little Cham🌈" }
+
+        ]
+      };
+
+      render() {
+        return (
+          <div>
+            {this.state.cards.map(card => (
+              <GreetingCard
+                key={card.id}
+                greeting={card.greeting}
+                name={card.name}
+              />
+            ))}
+          </div>
+        );
+      }
+    }
+
+    // Render the App component
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
