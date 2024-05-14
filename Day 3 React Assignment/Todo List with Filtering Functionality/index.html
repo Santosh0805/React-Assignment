@@ -1,64 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
-</head>
-<body>
-  <div id="root" class="container"></div>
-  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Todo List functionality </title>
+    <style>
+
+#root {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.rexa-box {
+  margin-bottom: 20px;
+}
+
+.rexa-box input[type="text"] {
+  padding: 8px;
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.rexa-box button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.rexa-box button:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+span {
+  flex-grow: 1;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #c82333;
+}
+</style>
+
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    const { useState } = React;
-    function TodoApp() {
-      const [tasks, setTasks] = useState([]);
-      const [filter, setFilter] = useState('All');
-      const handleAddTask = (task) => {
-        setTasks([...tasks, { id: Date.now(), task, completed: false }]);
-      };
-      const handleToggleTask = (taskId) => {
-        setTasks(
-          tasks.map((task) =>
-            task.id === taskId ? { ...task, completed: !task.completed } : task
+
+    function TodoList() {
+      let [todo, setTodo] = React.useState([]);
+      let [newTodo, setNewTodo] = React.useState("");
+
+      function addTodo() {
+        setTodo([...todo, { id: Date.now(), text: newTodo, completed: false }]);
+        setNewTodo("");
+      }
+      function toggleTodo(id) {
+        setTodo(prevTodo =>
+          prevTodo.map(todo =>
+            todo.id == id ? { ...todo, completed: !todo.completed } : todo
           )
         );
-      };
-      const handleRemoveTask = (taskId) => {
-        setTasks(tasks.filter((task) => task.id !== taskId));
-      };
-      const filteredTasks = tasks.filter((task) => {
-        if (filter === 'All') return true;
-        if (filter === 'Active') return !task.completed;
-        if (filter === 'Completed') return task.completed;
-      });
+      }
+      function removeTodo(id) {
+        setTodo(prevTodo => prevTodo.filter(todo => todo.id !== id));
+      }
       return (
-        <div>
-          <h1>Todo List</h1>
-          <input type="text" placeholder="Add task..." onKeyDown={(e) => e.key === 'Enter' && handleAddTask(e.target.value)} />
-          <ul>
-            {filteredTasks.map((task) => (
-              <li key={task.id} className={task.completed ? 'completed' : ''}>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleToggleTask(task.id)}
-                />
-                <span className="task">{task.task}</span>
-                <button onClick={() => handleRemoveTask(task.id)}>Remove</button>
+
+        <div id ="rexa ">
+            <h1>Todo List</h1>
+          <div className="rexa-box">
+            <input type="text"value={newTodo}onChange={e => setNewTodo(e.target.value)}placeholder="Add new todo..."/>
+            <button onClick={addTodo}>Add Todo</button>
+          </div>
+
+          <ul type = 'none'>
+            {todo.map((todo, i) => (<li key={todo.id}>
+                <input type="checkbox"checked={todo.completed}onChange={() => toggleTodo(todo.id)}/>
+                <span > {todo.text}</span>
+                <button onClick={() => removeTodo(todo.id)}>Delete</button>
               </li>
             ))}
           </ul>
-          <div className="filter-btns">
-            <button className={`filter-btn ${filter === 'All' ? 'active' : ''}`} onClick={() => setFilter('All')}>All</button>
-            <button className={`filter-btn ${filter === 'Active' ? 'active' : ''}`} onClick={() => setFilter('Active')}>Active</button>
-            <button className={`filter-btn ${filter === 'Completed' ? 'active' : ''}`} onClick={() => setFilter('Completed')}>Completed</button>
-          </div>
         </div>
       );
     }
-    ReactDOM.render(<TodoApp />, document.getElementById('root'));
+    ReactDOM.render(<TodoList />,document.getElementById("root"));
   </script>
-</body>
 </html>
