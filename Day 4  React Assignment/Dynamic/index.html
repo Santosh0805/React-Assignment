@@ -3,53 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Greeting Card Display</title>
+  <title>Greeting Card </title>
   <style>
 .greet {
-  border: 8px dotted #f9dcc4;
-  color: #fff;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 10px;
   margin: 5px;
-  background-color: #ffb5a7;
+  text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease; 
-  width:50%;
-  margin: auto;
-  margin-bottom: 5%;
 }
 
-.greet:hover {
-  box-shadow: 0 8px 16px #ff8fab; 
+.greet h2 {
+  color: #333;
+  font-size: 30px;
 }
 
-h2 {
-  margin-top: 0; 
-  color: #fff; 
+.greet h3 {
+  color: #666;
+  font-size: 20px;
 }
 
-p {
-  margin: 10px 0; 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+#root {
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 16px rgba(0, 0, 0, 0.2);
+}
+</style>
 
-  </style>
 </head>
 <body>
   <div id="root"></div>
-
-  <!-- JavaScript code -->
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    // Define the GreetingCard component
+
     const GreetingCard = ({ greeting, name }) => {
       return (
         <div className="greet">
           <h2>{greeting}</h2>
-          <p>Dear {name},</p>
-          <p>Wishing you all the best!!</p>
+          <h3>{name}</h3>
+      
         </div>
       );
     };
@@ -57,30 +61,23 @@ p {
     class App extends React.Component {
       state = {
         cards: [
-          { id: 1, greeting: "🎂Happy Wedding Anniversary", name: "🎉Mom & Papa🎉" },
-          { id: 2, greeting: "💫Congratulations💫", name: "🌺🌺Bhaiya🌺🌺" },
-          { id: 3, greeting: "🌈Welcome", name: "Little Cham🌈" }
-
+          { id: 1, greeting: "Happy Birthday", name: "John Doe" },
+          { id: 2, greeting: "Hello ", name: "World  " },
+          { id: 3, greeting: "How are you ", name: "Everyone" }
         ]
       };
 
       render() {
         return (
           <div>
-            {this.state.cards.map(card => (
-              <GreetingCard
-                key={card.id}
-                greeting={card.greeting}
-                name={card.name}
-              />
-            ))}
+            {this.state.cards.map(card =>(<GreetingCard key={card.id}greeting={card.greeting}name={card.name}/>))}
           </div>
         );
       }
     }
 
-    // Render the App component
-    ReactDOM.render(<App />, document.getElementById("root"));
+  ReactDOM.render(<App />, document.getElementById("root"));
+
   </script>
 </body>
 </html>
